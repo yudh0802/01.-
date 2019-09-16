@@ -1,0 +1,31 @@
+.login_header_first {
+	color : blue;
+	margin-bottom: 40;
+	font-family: 'Open Sans', sans-serif;
+}
+.login_ID_text {
+	font-size: 30ㅌpx;
+}
+.login_PW_text {
+	font-family: serif;
+	font-size: 30px;
+}
+span {
+	font-weight: bold;
+}
+.login_button {
+	margin-top: 40;
+	background-color: red;
+	width: 100px;
+	height: 30px;
+}
+.login-box {
+    background-color: green;
+	width: 500px;
+	margin: 50px auto 20px auto;
+	padding: 50;
+}
+/*span {
+	font-size: 10px;
+	//css에 우선순위 점수가 있다. 근데 왠만하면 이런 상황을 만들지 말자^^;
+}*/

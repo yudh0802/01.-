@@ -23,9 +23,64 @@
 
   <script>
 
-    function hey(){
-      alert('안녕이 아니라 더 길게 써보겠습니다');
+    $(document).ready(function(){
+      $('#cards-box').html('');
+      listing();
+    });
+
+
+    function posting(){
+      let url = $('#posting-url').val();
+      let comment = $('#posting-comment').val();
+      let author = '유동현';
+
+      $.ajax({
+        type: "POST",
+        url: "https://spartacodingclub.kr/post",
+        data: { url_give:url, comment_give:comment, author_give:author },
+        success: function(response){
+          console.log(response)
+          alert('잘 저장됐다');
+          location.reload();
+        }
+      })
     }
+
+    function listing(){
+      $.ajax({
+        type: "GET",
+        url: "https://spartacodingclub.kr/post?author_give=유동현",
+        data: {},
+        success: function(response){
+          if (response['result'] == 'success') {
+            let articles = response['articles']
+            for (let i = 0; i < articles.length; i++){
+              let article = articles[i];
+              make_card(article['image'],article['title'],article['desc'],article['comment'],article['url']);
+            }
+          }else {
+           alert('기사를 받아오지 못했습니다');
+         }
+
+       }
+     })
+    }
+
+    function make_card(image,title,desc,comment,url){
+      let temp_html =
+      '<div class="card">\
+      <img class="card-img-top" src="'+image+'" alt="Card image cap">\
+      <div class="card-body">\
+      <a href="'+url+'" class="card-title">'+title+'</a>\
+      <p class="card-text">'+desc+'</p>\
+      <p class="card-comment">'+comment+'</p> \
+      </div>\
+      </div>';
+      $('#cards-box').append(temp_html);
+
+    }
+
+
   </script>
 
   <script>
@@ -87,9 +142,9 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">간단 코멘트</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea id="posting-comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
-    <button onclick="hey()" type="button" class="btn btn-primary">기사저장</button>
+    <button onclick="posting()" type="button" class="btn btn-primary">기사저장</button>
   </div>
 
   <div class="card-columns" id="cards-box">
